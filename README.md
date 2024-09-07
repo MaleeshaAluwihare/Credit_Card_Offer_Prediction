@@ -33,10 +33,11 @@ The dataset used for this project contains 10,108 customer records with the foll
 - **Data Preprocessing**: Handling missing data, encoding categorical variables, and feature scaling.
 - **Exploratory Data Analysis (EDA)**: Understanding the relationship between features and income.
 - **Modeling**: Several regression models are trained, evaluated, and compared to predict customer income.
+  - Linear Regression
   - Decision Tree Regressor
   - Random Forest Regressor
   - Gradient Boosting Regressor
-  - Linear Regression
+  - Support Vector Regressor
 - **Model Evaluation**: Evaluating the model performance using metrics such as:
   - Mean Absolute Error (MAE)
   - Mean Squared Error (MSE)
