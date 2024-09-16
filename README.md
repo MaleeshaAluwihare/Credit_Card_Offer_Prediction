@@ -42,7 +42,6 @@ The dataset used for this project includes customer information such as:
   - Precision
   - Recall
   - F1 Score
-  - AUC-ROC
 
 ## Installation and Usage
 To use this project locally, follow these steps:
