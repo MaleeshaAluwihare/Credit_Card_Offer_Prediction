@@ -1,55 +1,56 @@
-
 ---
 
-# Customer Salary Prediction
+# Credit Card Offer Prediction
 
 ## Project Overview
-This project aims to predict a customer's salary based on demographic and lifestyle information. By analyzing features such as age, education level, job type, marital status, and others, we develop a machine learning model to predict the annual income of individuals. This project can be useful for financial institutions to optimize financial product offerings (e.g., loans, credit cards) based on a customer's predicted income.
+This project aims to predict which customers are most likely to respond positively to a credit card offer based on historical customer data. By analyzing features such as demographic details, financial status, existing banking relationships, and previous interactions with offers, we develop a machine learning model that helps the bank target potential customers efficiently. This project helps optimize marketing efforts, improve conversion rates, and reduce unnecessary costs.
 
 ## Business Problem
-Financial institutions and companies often need to understand the income levels of their customers to provide relevant products and services. However, directly asking for salary information is not always feasible. In this project, we solve the problem of predicting salary from available customer data, enabling businesses to:
-- Customize product offerings based on income.
-- Improve customer experience with personalized offers.
-- Reduce financial risk by targeting offers to customers with the appropriate income level.
+Banks need to enhance their marketing strategies to identify customers who are likely to show interest in credit card offers. Instead of reaching out to all customers, which is time-consuming and costly, the goal is to build a predictive model that can accurately identify customers with a high likelihood of responding positively. This approach will help:
+- **Improve Targeting Efficiency**: Focus marketing efforts on customers who are more likely to respond positively.
+- **Increase Conversion Rates**: Reach the right prospects to enhance the success rate of credit card offers.
+- **Optimize Marketing Costs**: Minimize marketing expenses by avoiding less promising customers.
 
 ## Dataset
-The dataset used for this project contains 10,108 customer records with the following features:
-- **Customer_Age**: Age of the customer.
-- **Gender**: Gender of the customer.
-- **Dependent_Count**: Number of dependents.
-- **Education_Level**: Highest level of education attained.
-- **Marital_Status**: Customer's marital status.
-- **state_cd**: State code where the customer resides.
-- **Zipcode**: Residential zip code.
-- **Car_Owner**: Indicates if the customer owns a car.
-- **House_Owner**: Indicates if the customer owns a house.
-- **Personal_Loan**: Whether the customer has taken a personal loan.
-- **contact**: Contact type with the customer (e.g., cellular, unknown).
-- **Customer_Job**: Job type of the customer.
-- **Income**: Annual income of the customer (target variable).
-- **Cust_Satisfaction_Score**: A score indicating the customer’s satisfaction level.
+The dataset used for this project includes customer information such as:
+- **Cust_ID**: Unique identifier for each customer.
+- **Gender**: Customer's gender (Male/Female).
+- **Month_Income**: Customer's monthly income.
+- **Age**: Customer's age.
+- **Region_Code**: Geographic region code.
+- **Occupation**: Type of occupation (Salaried, Self-Employed, Business, Student).
+- **Credit_Score**: Customer's credit score.
+- **Loan_Status**: Whether the customer has an active loan (Yes/No).
+- **Existing_Credit_Cards**: Number of credit cards the customer already has.
+- **Avg_Account_Balance**: Customer's average account balance.
+- **Account_Category**: Account balance categorization (Savings Account, Current Account, Senior Citizens Account, Investment Account ).
+- **Tenure_with_Bank**: Number of years the customer has been with the bank.
+- **Lead_Outcome**: Target variable indicating if the customer showed interest in the credit card offer (Yes/No).
 
 ## Key Features
-- **Data Preprocessing**: Handling missing data, encoding categorical variables, and feature scaling.
-- **Exploratory Data Analysis (EDA)**: Understanding the relationship between features and income.
-- **Modeling**: Several regression models are trained, evaluated, and compared to predict customer income.
-  - Linear Regression
-  - Decision Tree Regressor
-  - Random Forest Regressor
-  - Gradient Boosting Regressor
-  - Support Vector Regressor
-- **Model Evaluation**: Evaluating the model performance using metrics such as:
-  - Mean Absolute Error (MAE)
-  - Mean Squared Error (MSE)
-  - R-squared (R²)
+- **Data Preprocessing**: Handling missing values, encoding categorical variables, and scaling features.
+- **Exploratory Data Analysis (EDA)**: Understanding the key patterns in the data and the relationship between features and the `Lead_Outcome`.
+- **Modeling**: Building and comparing machine learning classification models to predict whether a customer will respond positively. Models used include:
+  - Logistic Regression
+  - Decision Tree Classifier
+  - Random Forest Classifier
+  - Gradient Boosting Classifier
+  - XGBoost Classifier
+  - Support Vector Classifier
+- **Model Evaluation**: Performance metrics such as:
+  - Accuracy
+  - Precision
+  - Recall
+  - F1 Score
+  - AUC-ROC
 
 ## Installation and Usage
 To use this project locally, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/MaleeshaAluwihare/Customer_Salary_Prediction.git
-    cd Customer_Salary_Prediction
+    git clone https://github.com/MaleeshaAluwihare/Credit_Card_Offer_Prediction.git
+    cd Credit_Card_Offer_Prediction
     ```
 
 2. Install the required dependencies:
@@ -57,26 +58,22 @@ To use this project locally, follow these steps:
     pip install -r requirements.txt
     ```
 
-3. Run the Jupyter notebook or Python script to train the model:
+3. Run the Streamlit app:
     ```bash
-    jupyter notebook
-    ```
-   or
-   ```bash
-    python salary_prediction.py
+    streamlit run App.py
     ```
 
+4. In the Streamlit app, provide customer input data in the form to predict whether the customer will respond positively to the credit card offer.
 
 ## Results
-The best-performing model was **[model_name]**, which achieved an R² score of **[score]** on the test set, indicating that the model explains a significant portion of the variance in customer salaries.
+The best-performing model was **[model_name]**, which achieved an accuracy of **[accuracy_score]**, showing that the model can effectively identify customers who are likely to show interest in credit card offers.
 
 ## Conclusion
-By accurately predicting customer salaries, businesses can make data-driven decisions to personalize product offerings and better serve their customer base. This project demonstrates the potential of machine learning to solve practical business problems in financial services.
+By predicting customer interest in credit card offers, the bank can make data-driven decisions to optimize marketing strategies, improve conversion rates, and minimize costs. This project demonstrates the potential of machine learning in solving real-world business challenges in the financial industry.
 
 ## Future Improvements
-- Feature engineering to improve model performance.
-- Testing with different machine learning algorithms.
-- Deployment of the model as an API for real-time prediction.
-
+- Experiment with more advanced feature engineering techniques.
+- Tune model hyperparameters for better performance.
+- Deploy the model as an API for real-time predictions.
 
 ---
