@@ -7,6 +7,7 @@ import seaborn as sns
 from sklearn.preprocessing import OneHotEncoder
 from streamlit_lottie import st_lottie
 import joblib
+from io import BytesIO
 
 # Load the trained model and dataset
 loaded_model = joblib.load(r'TrainedModels\Logistic_Regression_model.pkl')
@@ -74,6 +75,8 @@ plot_type = st.sidebar.selectbox("Choose a plot type", ["Distribution", "By Targ
 # Dropdown for column selection
 selected_column = st.sidebar.selectbox("Select a column to plot", df.columns)
 
+st.markdown('---')
+
 st.markdown(f"<h3>Enter Customer Details Here..</h3>", unsafe_allow_html=True)
 
 def load_lottiefile(filepath: str):
@@ -95,13 +98,24 @@ st_lottie(
 
 # Prediction function
 def predict_lead_outcome(data):
-    encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    # encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
     data_encoded = pd.get_dummies(data)
     all_columns = ds.drop('Lead_Outcome', axis=1).columns
     data_encoded = data_encoded.reindex(columns=all_columns, fill_value=0)
     prediction = loaded_model.predict(data_encoded)
-    return 'yes' if prediction[0] == 1 else 'no'
+    return ['Interest' if p == 1 else 'Not interest' for p in prediction]
 
+#function to generate a download link
+def generate_csv_download_link(dataset, filename='predicted_data.csv'):
+    output = BytesIO()
+    dataset.to_csv(output, index=False)
+    output.seek(0)
+    return st.download_button(
+        label="Download Result",
+        data=output,
+        file_name=filename,
+        mime='text/csv',
+    )
 
 # Form 
 st.markdown('<div class="form-container">', unsafe_allow_html=True)
@@ -124,6 +138,65 @@ with st.form(key='lead_prediction_form'):
 
 st.markdown('</div>', unsafe_allow_html=True)
 
+# CSV Upload Section
+st.markdown('---')
+st.header('Batch Prediction for Dataset')
+
+with st.expander("Click here to see dataset instructions"):
+    st.markdown("""
+    ### Instructions for Dataset Upload:
+    - The dataset should be in **CSV format**.
+    - The file must contain the following columns with appropriate data types:
+    1. **ID**: Unique identifier for each customer (This will not be used in prediction but will appear in the output file).
+    2. **Gender**: The gender of the customer (should be either 'Male' or 'Female').
+    3. **Month_Income**: The monthly income of the customer (numeric value).
+    4. **Age**: The age of the customer (numeric value).
+    5. **Occupation**: The occupation of the customer (should be one of the following: 'Entrepreneur', 'Other', 'Salaried', 'Self_Employed').
+    6. **Credit_Score**: The credit score of the customer (numeric value).
+    7. **Loan_Status**: The loan status of the customer (should be either 'Yes' or 'No').
+    8. **Existing_Credit_Cards**: The number of existing credit cards the customer has (numeric value).
+    9. **Avg_Account_Balance**: The average account balance of the customer (numeric value).
+    10. **Account_Category**: The account category of the customer (should be one of the following: 'Savings Account', 'Current Account', 'Senior Citizens Account', 'Investment Account').
+    11. **Tenure_with_Bank**: The number of years the customer has been with the bank (numeric value).
+
+    - Make sure the dataset follows the above structure and the column names match exactly.
+    - The **ID** column will be used to identify customers in the results and will not be part of the prediction inputs.
+    - The **Lead_Outcome** will be predicted and added to the dataset after processing.
+    """)
+
+uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+
+if uploaded_file:
+    user_data = pd.read_csv(uploaded_file)
+
+    # Check if 'User_ID' column exists
+    if 'ID' not in user_data.columns:
+        st.error("The dataset must contain a 'ID' column.")
+    else:
+        # remove 'User_ID' from prediction
+        input_data = user_data.drop(columns=['ID'])
+        
+        # Loading animation
+        placeholder = st.empty()
+        with placeholder.container():
+            st.markdown('<div class="centered-container">', unsafe_allow_html=True)
+            lottie_animation = load_lottie_file(r'Styles\loading.json')
+            st_lottie(lottie_animation, height=150, width=300)
+            st.markdown('</div>', unsafe_allow_html=True)
+            time.sleep(3)
+        
+        placeholder.empty()
+
+        # Predict for the uploaded dataset
+        user_data['Lead_Outcome'] = predict_lead_outcome(input_data)
+
+        # Display the dataset with the predictions
+        st.write(user_data[['ID', 'Lead_Outcome']])
+
+        # Provide option to download the results
+        generate_csv_download_link(user_data[['ID', 'Lead_Outcome']])
+
+# Prediction for individual form inputs
 if submit_button:
     input_data = pd.DataFrame({
         'Gender': [gender],
@@ -169,6 +242,7 @@ if submit_button:
         st.markdown('<div style="text-align: center; color: red; background-color: #f8d7da; padding: 10px; border-radius: 5px;"><strong>Customer may not show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
 
 st.write("\n\n\n\n\n\n\n\n\n\n\n\n")
+st.markdown('---')
 
 #Data visualization
 st.markdown('<div class="centered-para"><u>Data Visualizations</u></div>', unsafe_allow_html=True)
