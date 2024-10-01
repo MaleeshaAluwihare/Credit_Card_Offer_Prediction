@@ -1,40 +1,40 @@
-,ID,Gender,Month_Income,Age,Occupation,Credit_Score,Loan_Status,Existing_Credit_Cards,Avg_Account_Balance,Account_Category,Tenure_with_Bank
-48849,YX4TFJZE,Female,64230.0,62,Other,447,No,0,878679,Current Account,5
-77272,MSUI4GX5,Male,64230.0,34,Salaried,642,No,0,3656751,Savings Account,5
-47986,BDBUR2J4,Male,85640.0,33,Salaried,544,No,0,772413,Savings Account,1
-81993,8OS5DKQB,Female,74935.0,45,Other,648,Yes,1,577191,Current Account,1
-28850,YV96FAJ5,Male,64230.0,50,Other,370,No,0,239000,Current Account,4
-73037,NSUUKD3F,Male,178925.0,36,Self_Employed,791,No,0,527948,Savings Account,10
-6381,NFBYDZ8Y,Female,42820.0,40,Self_Employed,436,Yes,1,679986,Senior Citizens Account,2
-36548,PFY4TKSC,Male,74935.0,47,Other,630,Yes,1,991228,Senior Citizens Account,3
-55143,3MKYDLY3,Female,115775.0,42,Self_Employed,794,Yes,1,1026810,Senior Citizens Account,5
-86633,Q9QLDQZS,Male,73675.0,51,Other,753,No,0,1195528,Current Account,5
-3342,RHSABNDL,Male,96345.0,28,Salaried,577,No,0,2903144,Savings Account,4
-77679,WFZD5JSS,Female,96345.0,27,Salaried,581,No,0,356640,Savings Account,4
-81726,ZKV2V2UK,Female,96345.0,29,Other,379,Yes,1,1123295,Savings Account,1
-15077,HGVXDRG5,Female,74935.0,34,Salaried,424,No,0,383056,Savings Account,1
-52,XMGA3WT3,Male,42820.0,67,Other,386,No,0,540247,Investment Account,5
-98340,CUAOSPIM,Male,107050.0,60,Self_Employed,402,No,0,1072485,Savings Account,1
-79227,JTH8HJND,Female,107050.0,27,Other,609,No,0,1134100,Savings Account,2
-37441,PYWH5EVB,Female,85640.0,28,Salaried,454,No,0,1261806,Savings Account,1
-69202,XEVEUX6T,Female,136825.0,47,Self_Employed,713,Yes,1,1212669,Senior Citizens Account,5
-67288,HFKHDHHZ,Female,64230.0,47,Self_Employed,545,No,0,944138,Current Account,3
-82814,W6ALDYJC,Male,178925.0,52,Other,723,No,0,2498603,Current Account,5
-22006,FIGDNQVU,Female,107050.0,30,Salaried,302,No,0,450251,Savings Account,1
-355,XNURWQBT,Male,157875.0,31,Salaried,843,No,0,1005255,Savings Account,5
-72732,LCAHI4DF,Male,53525.0,35,Other,362,No,0,1439895,Savings Account,5
-71343,3QAT6UX2,Female,42820.0,29,Salaried,486,Yes,1,1322299,Savings Account,1
-11123,3XYLSBCR,Female,107050.0,38,Salaried,527,Yes,1,632389,Current Account,1
-61579,GYYG2VXT,Male,85640.0,59,Self_Employed,442,Yes,1,2639250,Senior Citizens Account,3
-12131,CSVN6BCU,Male,189450.0,55,Self_Employed,900,No,0,605253,Investment Account,10
-19543,BZHNB5DP,Male,53525.0,45,Self_Employed,605,Yes,1,536180,Current Account,4
-49525,XSCSJEPH,Female,96345.0,40,Self_Employed,333,No,0,5120054,Current Account,4
-34528,SVPUOATZ,Male,168400.0,51,Self_Employed,761,Yes,1,1197219,Senior Citizens Account,10
-54783,ESVXAB9Y,Female,210500.0,64,Other,754,No,0,517339,Savings Account,5
-10573,LCY4YLCM,Female,53525.0,29,Salaried,534,Yes,1,645801,Savings Account,3
-40464,KBCMRS4P,Male,64230.0,38,Self_Employed,439,No,0,469065,Senior Citizens Account,1
-48149,9RHJMJ6G,Male,85640.0,27,Self_Employed,305,No,0,601195,Savings Account,2
-92077,7DUQRX9P,Male,126300.0,30,Self_Employed,882,No,0,330385,Savings Account,10
-49117,NGDTKHPV,Male,157875.0,78,Other,829,No,0,720997,Current Account,10
-74122,ACVLJW3I,Male,157875.0,44,Self_Employed,730,No,0,776676,Current Account,5
-18152,HP7JIGXE,Female,178925.0,31,Other,766,No,0,309221,Savings Account,10
+ID,Gender,Month_Income,Age,Occupation,Credit_Score,Loan_Status,Existing_Credit_Cards,Avg_Account_Balance,Account_Category,Tenure_with_Bank
+YX4TFJZE,Female,64230,62,Other,447,No,0,878679,Current Account,5
+MSUI4GX5,Male,64230,34,Salaried,642,No,0,3656751,Savings Account,5
+BDBUR2J4,Male,85640,33,Salaried,544,No,0,772413,Savings Account,1
+8OS5DKQB,Female,74935,45,Other,648,Yes,1,577191,Current Account,1
+YV96FAJ5,Male,64230,50,Other,370,No,0,239000,Current Account,4
+NSUUKD3F,Male,178925,36,Self_Employed,791,No,0,527948,Savings Account,10
+NFBYDZ8Y,Female,42820,40,Self_Employed,436,Yes,1,679986,Senior Citizens Account,2
+PFY4TKSC,Male,74935,47,Other,630,Yes,1,991228,Senior Citizens Account,3
+3MKYDLY3,Female,115775,42,Self_Employed,794,Yes,1,1026810,Senior Citizens Account,5
+Q9QLDQZS,Male,73675,51,Other,753,No,0,1195528,Current Account,5
+RHSABNDL,Male,96345,28,Salaried,577,No,0,2903144,Savings Account,4
+WFZD5JSS,Female,96345,27,Salaried,581,No,0,356640,Savings Account,4
+ZKV2V2UK,Female,96345,29,Other,379,Yes,1,1123295,Savings Account,1
+HGVXDRG5,Female,74935,34,Salaried,424,No,0,383056,Savings Account,1
+XMGA3WT3,Male,42820,67,Other,386,No,0,540247,Investment Account,5
+CUAOSPIM,Male,107050,60,Self_Employed,402,No,0,1072485,Savings Account,1
+JTH8HJND,Female,107050,27,Other,609,No,0,1134100,Savings Account,2
+PYWH5EVB,Female,85640,28,Salaried,454,No,0,1261806,Savings Account,1
+XEVEUX6T,Female,136825,47,Self_Employed,713,Yes,1,1212669,Senior Citizens Account,5
+HFKHDHHZ,Female,64230,47,Self_Employed,545,No,0,944138,Current Account,3
+W6ALDYJC,Male,178925,52,Other,723,No,0,2498603,Current Account,5
+FIGDNQVU,Female,107050,30,Salaried,302,No,0,450251,Savings Account,1
+XNURWQBT,Male,157875,31,Salaried,843,No,0,1005255,Savings Account,5
+LCAHI4DF,Male,53525,35,Other,362,No,0,1439895,Savings Account,5
+3QAT6UX2,Female,42820,29,Salaried,486,Yes,1,1322299,Savings Account,1
+3XYLSBCR,Female,107050,38,Salaried,527,Yes,1,632389,Current Account,1
+GYYG2VXT,Male,85640,59,Self_Employed,442,Yes,1,2639250,Senior Citizens Account,3
+CSVN6BCU,Male,189450,55,Self_Employed,900,No,0,605253,Investment Account,10
+BZHNB5DP,Male,53525,45,Self_Employed,605,Yes,1,536180,Current Account,4
+XSCSJEPH,Female,96345,40,Self_Employed,333,No,0,5120054,Current Account,4
+SVPUOATZ,Male,168400,51,Self_Employed,761,Yes,1,1197219,Senior Citizens Account,10
+ESVXAB9Y,Female,210500,64,Other,754,No,0,517339,Savings Account,5
+LCY4YLCM,Female,53525,29,Salaried,534,Yes,1,645801,Savings Account,3
+KBCMRS4P,Male,64230,38,Self_Employed,439,No,0,469065,Senior Citizens Account,1
+9RHJMJ6G,Male,85640,27,Self_Employed,305,No,0,601195,Savings Account,2
+7DUQRX9P,Male,126300,30,Self_Employed,882,No,0,330385,Savings Account,10
+NGDTKHPV,Male,157875,78,Other,829,No,0,720997,Current Account,10
+ACVLJW3I,Male,157875,44,Self_Employed,730,No,0,776676,Current Account,5
+HP7JIGXE,Female,178925,31,Other,766,No,0,309221,Savings Account,10
