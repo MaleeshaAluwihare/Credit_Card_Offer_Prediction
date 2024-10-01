@@ -10,33 +10,26 @@ import joblib
 from io import BytesIO
 
 # Load the trained model and dataset
-loaded_model = joblib.load(r'TrainedModels\Logistic_Regression_model.pkl')
+loaded_model = joblib.load(r'TrainedModels\KNN_model.pkl')
 ds = pd.read_csv(r'Dataset\processed_training_data.csv')
 df = pd.read_csv(r'Dataset\bank_customer.csv')
-df = df.drop(['Unnamed: 0','ID', 'Region_Code'], axis=1)
+df = df.drop(['Unnamed: 0', 'ID', 'Region_Code'], axis=1)
 
-# Function to load Lottie animation
+# Columns used in training
+all_columns = ds.columns.tolist()
+
+# Load Lottie animation
 def load_lottie_file(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-
 # Title
 st.markdown('<div class="centered-title">Welcome to Smart Credit Card Marketing!</div>', unsafe_allow_html=True)
 
-# animation
-lottie_file= load_lottie_file(r'Styles\card3.json')
-st_lottie(
-                lottie_file,
-                speed=0.1, 
-                reverse=False,
-                loop=True,
-                quality='medium',
-                
-                height=200,
-                key=None)
+# Animation
+lottie_file = load_lottie_file(r'Styles\card3.json')
+st_lottie(lottie_file, speed=0.1, reverse=False, loop=True, quality='medium', height=200, key=None)
 
-# st.markdown('<div class="centered-para"> In today\'s competitive banking industry, reaching the right customers is more important than ever. Our platform is designed to help banks optimize their credit card marketing strategy by leveraging the power of predictive analytics.</div>',unsafe_allow_html=True)
 col1, col2, col3 = st.columns([1,1,1])
 
 with col1:
@@ -79,33 +72,32 @@ st.markdown('---')
 
 st.markdown(f"<h3>Enter Customer Details Here..</h3>", unsafe_allow_html=True)
 
-def load_lottiefile(filepath: str):
-                with open(filepath) as f:
-                    lottie_json = json.load(f)
-                return lottie_json
-
-lottie_file= load_lottiefile(r'Styles\form.json')
-st_lottie(
-                lottie_file,
-                speed=0.3, 
-                reverse=False,
-                loop=True,
-                quality='medium',
-                
-                height=200,
-                key=None
-            )
+# OneHotEncoder setup (same categories as training)
+encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+categorical_columns = ['Gender', 'Occupation', 'Loan_Status', 'Account_Category']
+encoder.fit(df[categorical_columns]) 
 
 # Prediction function
-def predict_lead_outcome(data):
-    # encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-    data_encoded = pd.get_dummies(data)
-    all_columns = ds.drop('Lead_Outcome', axis=1).columns
+def predict_lead_outcome(data, encoder, all_columns):
+    # OneHotEncoding on the new data
+    encoded_columns = encoder.transform(data[categorical_columns])
+    encoded_df = pd.DataFrame(encoded_columns, columns=encoder.get_feature_names_out(categorical_columns), index=data.index)
+    
+    # Drop the original categorical columns from the input data
+    data = data.drop(columns=categorical_columns)
+    
+    # Concatenate the original data with the one-hot encoded columns
+    data_encoded = pd.concat([data, encoded_df], axis=1)
+    
+    # Ensure the input data has the same columns as the training data
     data_encoded = data_encoded.reindex(columns=all_columns, fill_value=0)
+    
     prediction = loaded_model.predict(data_encoded)
+    
     return ['Interest' if p == 1 else 'Not interest' for p in prediction]
 
-#function to generate a download link
+
+# Function to generate a download link
 def generate_csv_download_link(dataset, filename='predicted_data.csv'):
     output = BytesIO()
     dataset.to_csv(output, index=False)
@@ -120,7 +112,6 @@ def generate_csv_download_link(dataset, filename='predicted_data.csv'):
 # Form 
 st.markdown('<div class="form-container">', unsafe_allow_html=True)
 with st.form(key='lead_prediction_form'):
-    
     # Form inputs
     gender = st.selectbox('Gender', ['Male', 'Female'])
     month_income = st.number_input('Month Income', min_value=0)
@@ -162,14 +153,12 @@ if submit_button:
         st.markdown('</div>', unsafe_allow_html=True)
         time.sleep(3)
 
-    placeholder.empty() 
+    placeholder.empty()
 
-    
     # Display the prediction result
-    prediction = predict_lead_outcome(input_data)
+    prediction = predict_lead_outcome(input_data, encoder, all_columns)
 
-    
-    if prediction == 'yes':
+    if prediction[0] == 'Interest':
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             lottie_animation = load_lottie_file(r'Styles\selected.json')
@@ -182,7 +171,6 @@ if submit_button:
             lottie_animation = load_lottie_file(r'Styles\rejected.json')
             st_lottie(lottie_animation, height=150, width=300)
         st.markdown('<div style="text-align: center; color: red; background-color: #f8d7da; padding: 10px; border-radius: 5px;"><strong>Customer may not show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
-
 
 # CSV Upload Section
 st.markdown('---')
@@ -204,10 +192,6 @@ with st.expander("Click here to see dataset instructions"):
     9. **Avg_Account_Balance**: The average account balance of the customer (numeric value).
     10. **Account_Category**: The account category of the customer (should be one of the following: 'Savings Account', 'Current Account', 'Senior Citizens Account', 'Investment Account').
     11. **Tenure_with_Bank**: The number of years the customer has been with the bank (numeric value).
-
-    - Make sure the dataset follows the above structure and the column names match exactly.
-    - The **ID** column will be used to identify customers in the results and will not be part of the prediction inputs.
-    - The **Lead_Outcome** will be predicted and added to the dataset after processing.
     """)
 
 uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
@@ -215,11 +199,11 @@ uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 if uploaded_file:
     user_data = pd.read_csv(uploaded_file)
 
-    # Check if 'User_ID' column exists
+    # Check if 'ID' column exists
     if 'ID' not in user_data.columns:
         st.error("The dataset must contain a 'ID' column.")
     else:
-        # remove 'User_ID' from prediction
+        # Remove 'ID' from prediction inputs
         input_data = user_data.drop(columns=['ID'])
         
         # Loading animation
@@ -230,18 +214,18 @@ if uploaded_file:
             st_lottie(lottie_animation, height=150, width=300)
             st.markdown('</div>', unsafe_allow_html=True)
             time.sleep(3)
-        
+
         placeholder.empty()
 
-        # Predict for the uploaded dataset
-        user_data['Lead_Outcome'] = predict_lead_outcome(input_data)
+        # Batch prediction
+        prediction = predict_lead_outcome(input_data, encoder, all_columns)
+        user_data['Lead_Outcome'] = prediction
 
-        # Display the dataset with the predictions
-        st.write(user_data[['ID', 'Lead_Outcome']])
+        # Display the first few rows of the result
+        st.write(user_data.head())
 
-        # Provide option to download the results
-        generate_csv_download_link(user_data[['ID', 'Lead_Outcome']])
-
+        # Provide a download link for the result CSV
+        generate_csv_download_link(user_data)
 
 st.write("\n\n\n\n\n\n\n\n\n\n\n\n")
 st.markdown('---')
