@@ -125,7 +125,7 @@ with st.form(key='lead_prediction_form'):
     gender = st.selectbox('Gender', ['Male', 'Female'])
     month_income = st.number_input('Month Income', min_value=0)
     age = st.number_input('Age', min_value=0)
-    occupation = st.selectbox('Occupation', ['Entrepreneur', 'Other', 'Salaried', 'Self_Employed'])
+    occupation = st.selectbox('Occupation', ['Other', 'Salaried', 'Self_Employed'])
     credit_score = st.number_input('Credit Score', min_value=0)
     loan_status = st.selectbox('Loan Status', ['Yes', 'No'])
     existing_credit_cards = st.number_input('Existing Credit Cards', min_value=0)
@@ -137,6 +137,52 @@ with st.form(key='lead_prediction_form'):
     submit_button = st.form_submit_button(label='Predict', use_container_width=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
+
+# Prediction for individual form inputs
+if submit_button:
+    input_data = pd.DataFrame({
+        'Gender': [gender],
+        'Month_Income': [month_income],
+        'Age': [age],
+        'Occupation': [occupation],
+        'Credit_Score': [credit_score],
+        'Loan_Status': [loan_status],
+        'Existing_Credit_Cards': [existing_credit_cards],
+        'Avg_Account_Balance': [avg_account_balance],
+        'Account_Category': [account_category],
+        'Tenure_with_Bank': [tenure_with_bank]
+    })
+    
+    # Loading animation before result
+    placeholder = st.empty()
+    with placeholder.container():
+        st.markdown('<div class="centered-container">', unsafe_allow_html=True)
+        lottie_animation = load_lottie_file(r'Styles\loading.json')
+        st_lottie(lottie_animation, height=150, width=300)
+        st.markdown('</div>', unsafe_allow_html=True)
+        time.sleep(3)
+
+    placeholder.empty() 
+
+    
+    # Display the prediction result
+    prediction = predict_lead_outcome(input_data)
+
+    
+    if prediction == 'yes':
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            lottie_animation = load_lottie_file(r'Styles\selected.json')
+            st_lottie(lottie_animation, height=150, width=300)
+        st.markdown('<div style="text-align: center; color: green; background-color: #d4edda; padding: 10px; border-radius: 5px;"><strong>Customer may show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
+
+    else:
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            lottie_animation = load_lottie_file(r'Styles\rejected.json')
+            st_lottie(lottie_animation, height=150, width=300)
+        st.markdown('<div style="text-align: center; color: red; background-color: #f8d7da; padding: 10px; border-radius: 5px;"><strong>Customer may not show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
+
 
 # CSV Upload Section
 st.markdown('---')
@@ -196,50 +242,6 @@ if uploaded_file:
         # Provide option to download the results
         generate_csv_download_link(user_data[['ID', 'Lead_Outcome']])
 
-# Prediction for individual form inputs
-if submit_button:
-    input_data = pd.DataFrame({
-        'Gender': [gender],
-        'Month_Income': [month_income],
-        'Age': [age],
-        'Occupation': [occupation],
-        'Credit_Score': [credit_score],
-        'Loan_Status': [loan_status],
-        'Existing_Credit_Cards': [existing_credit_cards],
-        'Avg_Account_Balance': [avg_account_balance],
-        'Account_Category': [account_category],
-        'Tenure_with_Bank': [tenure_with_bank]
-    })
-    
-    # Loading animation before result
-    placeholder = st.empty()
-    with placeholder.container():
-        st.markdown('<div class="centered-container">', unsafe_allow_html=True)
-        lottie_animation = load_lottie_file(r'Styles\loading.json')
-        st_lottie(lottie_animation, height=150, width=300)
-        st.markdown('</div>', unsafe_allow_html=True)
-        time.sleep(3)
-
-    placeholder.empty() 
-
-    
-    # Display the prediction result
-    prediction = predict_lead_outcome(input_data)
-
-    
-    if prediction == 'yes':
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            lottie_animation = load_lottie_file(r'Styles\selected.json')
-            st_lottie(lottie_animation, height=150, width=300)
-        st.markdown('<div style="text-align: center; color: green; background-color: #d4edda; padding: 10px; border-radius: 5px;"><strong>Customer may show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
-
-    else:
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            lottie_animation = load_lottie_file(r'Styles\rejected.json')
-            st_lottie(lottie_animation, height=150, width=300)
-        st.markdown('<div style="text-align: center; color: red; background-color: #f8d7da; padding: 10px; border-radius: 5px;"><strong>Customer may not show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
 
 st.write("\n\n\n\n\n\n\n\n\n\n\n\n")
 st.markdown('---')
