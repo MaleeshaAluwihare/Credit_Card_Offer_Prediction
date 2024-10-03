@@ -156,7 +156,8 @@ if submit_button:
     placeholder = st.empty()
     with placeholder.container():
         st.markdown('<div class="centered-container">', unsafe_allow_html=True)
-        lottie_animation = load_lottie_file(r'Styles\loading.json')
+        lottie_file_path = os.path.join(os.getcwd(), 'Styles', 'loading.json')
+        lottie_animation = load_lottie_file(lottie_file_path)
         st_lottie(lottie_animation, height=150, width=300)
         st.markdown('</div>', unsafe_allow_html=True)
         time.sleep(3)
