@@ -34,7 +34,8 @@ def load_lottie_file(filepath: str):
 st.markdown('<div class="centered-title">Welcome to Smart Credit Card Marketing!</div>', unsafe_allow_html=True)
 
 # Animation
-lottie_file = load_lottie_file(r'Styles\card3.json')
+lottie_file_path = os.path.join(os.getcwd(), 'Styles', 'card3.json')
+lottie_file = load_lottie_file(lottie_file_path)
 st_lottie(lottie_file, speed=0.1, reverse=False, loop=True, quality='medium', height=200, key=None)
 
 col1, col2, col3 = st.columns([1,1,1])
@@ -168,14 +169,16 @@ if submit_button:
     if prediction[0] == 'Interest':
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            lottie_animation = load_lottie_file(r'Styles\selected.json')
+            lottie_file_path = os.path.join(os.getcwd(), 'Styles', 'selected.json')
+            lottie_animation = load_lottie_file(lottie_file_path)
             st_lottie(lottie_animation, height=150, width=300)
         st.markdown('<div style="text-align: center; color: green; background-color: #d4edda; padding: 10px; border-radius: 5px;"><strong>Customer may show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
 
     else:
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            lottie_animation = load_lottie_file(r'Styles\rejected.json')
+            lottie_file_path = os.path.join(os.getcwd(), 'Styles', 'rejected.json')
+            lottie_animation = load_lottie_file(lottie_file_path)
             st_lottie(lottie_animation, height=150, width=300)
         st.markdown('<div style="text-align: center; color: red; background-color: #f8d7da; padding: 10px; border-radius: 5px;"><strong>Customer may not show interest in a credit card offer</strong></div>', unsafe_allow_html=True)
 
@@ -217,7 +220,8 @@ if uploaded_file:
         placeholder = st.empty()
         with placeholder.container():
             st.markdown('<div class="centered-container">', unsafe_allow_html=True)
-            lottie_animation = load_lottie_file(r'Styles\loading.json')
+            lottie_file_path = os.path.join(os.getcwd(), 'Styles', 'loading.json')
+            lottie_animation = load_lottie_file(lottie_file_path)
             st_lottie(lottie_animation, height=150, width=300)
             st.markdown('</div>', unsafe_allow_html=True)
             time.sleep(3)
@@ -245,7 +249,8 @@ def load_lottiefile(filepath: str):
         lottie_json = json.load(f)
     return lottie_json
 
-lottie_file= load_lottiefile(r'Styles\Animation1.json')
+lottie_file_path = os.path.join(os.getcwd(), 'Styles', 'Animation1.json')
+lottie_file= load_lottiefile(lottie_file_path)
 st_lottie(
     lottie_file,
     speed=1, 
