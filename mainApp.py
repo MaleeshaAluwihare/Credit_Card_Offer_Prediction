@@ -8,11 +8,18 @@ from sklearn.preprocessing import OneHotEncoder
 from streamlit_lottie import st_lottie
 import joblib
 from io import BytesIO
+import os
 
 # Load the trained model and dataset
-loaded_model = joblib.load(r'TrainedModels\KNN_model.pkl')
-ds = pd.read_csv(r'Dataset\processed_training_data.csv')
-df = pd.read_csv(r'Dataset\bank_customer.csv')
+model_path = os.path.join(os.getcwd(), 'TrainedModels', 'KNN_model.pkl')
+processed_data_path = os.path.join(os.getcwd(), 'Dataset', 'processed_training_data.csv')
+bank_customer_path = os.path.join(os.getcwd(), 'Dataset', 'bank_customer.csv')
+
+loaded_model = joblib.load(model_path)
+
+ds = pd.read_csv(processed_data_path)
+df = pd.read_csv(bank_customer_path)
+
 df = df.drop(['Unnamed: 0', 'ID', 'Region_Code'], axis=1)
 
 # Columns used in training
